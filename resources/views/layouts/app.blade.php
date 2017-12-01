@@ -12,6 +12,12 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/font-awesome-4.7.0/css/font-awesome.min.css') }}" rel="stylesheet">
+
+    <!-- SCRIPt -->
+    <script> var __baseUrl = "{{url('/')}}"  </script>
+
+
 </head>
 <body>
     <div id="app">
@@ -63,6 +69,9 @@
                                             {{ csrf_field() }}
                                         </form>
                                     </li>
+                                    <li>
+                                      <a href="{{ url('proyectos') }}">Mis proyectos</a>
+                                    </li>
                                 </ul>
                             </li>
                         @endif
@@ -76,5 +85,28 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+
+
+    <!-- Authentication Links -->
+    @if (!Auth::guest())
+        <link rel="stylesheet" href="{{ asset('lib/messages/css/messenger-theme-air.css') }}">
+        <link rel="stylesheet"href="{{ asset('lib/messages/css/messenger.css') }}">
+        <script src="{{ asset('lib/messages/js/messenger.js') }}"></script>
+        <script type="text/javascript">
+                Messenger.options = {
+                                        extraClasses: 'messenger-fixed messenger-on-bottom messenger-on-right',
+                                        theme: 'air'
+                                    }
+        </script>
+
+        <script src="{{ asset('js/proyectos.js') }}"></script>
+        <script src="{{ asset('js/dispositivo.js') }}"></script>
+
+    @endif
+
+
+
+
+
 </body>
 </html>
