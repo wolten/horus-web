@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Processor;
 use App\Nugget;
+use App\Monitor;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
@@ -28,6 +29,8 @@ class ProcessorCtrl extends Controller
             return response()->json($response, 200);
           }
 
+          //monitor bitch
+          #$monitor = $this->saveMonitor($modulo, $lectura1, $lectura2, $lectura3, $lectura4);
 
           #LECTURA 1
           $input["nugget_id"]     = $modulo->id;
@@ -35,6 +38,7 @@ class ProcessorCtrl extends Controller
           $input['valor']         = $lectura1;
 
           $obj = Processor::create($input);
+
 
 
           #LECTURA 2
@@ -45,12 +49,14 @@ class ProcessorCtrl extends Controller
           $obj = Processor::create($input2);
 
 
+
           #LECTURA 3
           $input3["nugget_id"]     = $modulo->id;
           $input3['type_id']       = 3;
           $input3['valor']         = $lectura3;
 
           $obj = Processor::create($input3);
+
 
 
           #LECTURA 4
@@ -71,5 +77,18 @@ class ProcessorCtrl extends Controller
               return response()->json($response, 200);
         }
     }
+
+    private function saveMonitor($modulo_id, $lectura1, $lectura2, $lectura3, $lectura4)
+    {
+        $monitor = Monitor::where('nugget_id',$modulo_id)->first();
+        if($monitor)
+        {
+
+        }
+
+    }
+
+
+
 
 }

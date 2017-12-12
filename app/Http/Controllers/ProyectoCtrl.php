@@ -7,8 +7,8 @@ use App\Nugget;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
-
-
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Redirect;
 
 class ProyectoCtrl extends Controller
 {
@@ -30,20 +30,34 @@ class ProyectoCtrl extends Controller
 
   public function store(Request $request)
   {
-        if($request->ajax())
-        {
+
+          $validator = Validator::make($request->all(), [
+                      'nombre' => 'required|max:255',
+                      'descripcion' => 'required',
+                  ]);
+
+          if ($validator->fails())
+          {
+              return redirect::back()
+                          ->withErrors($validator)
+                          ->withInput();
+          }
+
           try
           {
             $input                    = $request->all();
             $input['user_id']         = Auth::id();
             $proyecto = Proyecto::create($input);
-            return response()->json(['status'=>'success', 'data'=>$proyecto], 200);
+            #return response()->json(['status'=>'success', 'data'=>$proyecto], 200);
+            return redirect('proyectos');
+
+
           }catch (QueryException $e)
           {
                 $response["error"] = $e;
           }
 
-        }
+
 
         return response()->json($response);
 

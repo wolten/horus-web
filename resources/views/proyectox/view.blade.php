@@ -11,10 +11,10 @@
           <div class="panel-body">
 
             <a href="{{ url('proyecto/dispositivo/nuevo',$proyecto->id) }}" rel="{{ $proyecto->id }}">
-              <i class="fa fa-plus"></i> Nuevo Dispositivo
+              <i class="fa fa-plus"></i> Nuevo modulo
             </a> <br>
 
-            <a href="{{ url('monitor',$proyecto->id) }}">
+            <a href="{{ url('proyecto/monitor',$proyecto->id) }}">
               <i class="fa fa-dashboard"></i> Monitor
             </a>
 
@@ -40,12 +40,23 @@
                       </thead>
                       <tbody>
                       @foreach($dispositivos AS $device)
-                          <tr>
+                          <tr id="list-item-{{ $device->id }}">
                             <td>{{ $device->nombre }}</td>
                             <td>{{ $device->numeroSerie}}</td>
                             <td>{{ $device->updated_at }}</td>
                             <td>
-                              <a href="" class="btn btn-primary">Opciones</a>
+                              {!! Form::open(['method' => 'POST']) !!}
+                              {!! Form::hidden('dispositivo', $device->id); !!}
+                              <!-- Single button -->
+                                <div class="btn-group">
+                                  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Opciones <span class="caret"></span>
+                                  </button>
+                                  <ul class="dropdown-menu">
+                                    <li><a href="#" id="btnDeleteModulo" data-id="{{ $device->id }}">Eliminar</a></li>
+                                  </ul>
+                                </div>
+                              {!! Form::close() !!}
                             </td>
                           </tr>
                       @endforeach

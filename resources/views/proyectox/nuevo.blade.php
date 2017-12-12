@@ -12,7 +12,7 @@
 
 
                   <!-- DOIT -->
-                  {!! Form::open(['method' => 'POST']) !!}
+                  {!! Form::open(['method' => 'POST', 'route' => 'proyecto.new']) !!}
 
 
                     <div class="form-group">
@@ -27,13 +27,25 @@
 
 
                     <div class="form-group">
-                        <button type="button" id="btnStoreProyecto" class="btn btn-success">
+                        <button type="submit" id="" class="btn btn-success">
                           <i class="fa fa-send-o"></i>
                           Crear proyecto
                         </button>
                     </div>
 
-                    <div id="mensaje" class='p-2'></div>
+                    <div id="mensaje" class='p-2'>
+
+                      @if ($errors->any())
+                          <div class="alert alert-danger">
+                              <ul>
+                                  @foreach ($errors->all() as $error)
+                                      <li>{{ $error }}</li>
+                                  @endforeach
+                              </ul>
+                          </div>
+                      @endif
+
+                    </div>
 
                   {!! Form::close() !!}
 

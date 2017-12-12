@@ -1,24 +1,29 @@
-$(document).on("click","#btnStoreDevice",function(e)
+$(document).on("click","#btnDeleteModulo",function(e)
 {
     e.preventDefault();
     var frm = $(this).closest("form");
     var datos = frm.serialize();
 
-    $.ajax({
+    var eliminar = confirm("Deseas eliminar este modulo?");
+
+    if(eliminar)
+    {
+      var id_item = $(this).data("id");
+        $.ajax({
             type: "POST",
-            url: __baseUrl + '/ajax/dispositivo/store',
+            url: __baseUrl + '/ajax/dispositivo/delete',
             data: datos,
             success: function( json )
             {
               if(json.status=="success")
               {
-
+                  $("#list-item-" + id_item).remove();
                   Messenger().post({
-                                      message: 'Listo, guardamos tu proyecto!',
+                                      message: 'Modulo eliminado',
                                       type: 'success',
                                       showCloseButton: true
                                     });
-                  frm[0].reset();
+
               }else
               {
                 console.log(json);
@@ -42,4 +47,6 @@ $(document).on("click","#btnStoreDevice",function(e)
                             }
                         }
           });
+
+    }
 });

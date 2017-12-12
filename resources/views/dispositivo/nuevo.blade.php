@@ -12,7 +12,7 @@
 
 
                   <!-- DOIT -->
-                  {!! Form::open(['method' => 'POST']) !!}
+                  {!! Form::open(['method' => 'POST','route'=>'device.store']) !!}
                     {!! Form::hidden('proyecto_id', $proyecto->id); !!}
 
                     <div class="form-group">
@@ -21,7 +21,7 @@
                     </div>
 
                     <div class="form-group">
-                      {!! Form::label('nombre', 'No serie:'); !!}
+                      {!! Form::label('numeroSerie', 'No serie:'); !!}
                       {!! Form::text('numeroSerie', null,['class'=>'form-control', 'placeholder'=>'WHM00MX0050041300001']); !!}
                     </div>
 
@@ -33,13 +33,25 @@
 
 
                     <div class="form-group">
-                        <button type="button" id="btnStoreDevice" class="btn btn-success">
+                        <button type="submit" class="btn btn-success">
                           <i class="fa fa-floppy-o"></i>
                           Crear dispositivo
                         </button>
                     </div>
 
-                    <div id="mensaje" class='p-2'>  </div>
+                    <div id="mensaje" class='p-2'>
+
+                      @if ($errors->any())
+                          <div class="alert alert-danger">
+                              <ul>
+                                  @foreach ($errors->all() as $error)
+                                      <li>{{ $error }}</li>
+                                  @endforeach
+                              </ul>
+                          </div>
+                      @endif
+
+                    </div>
 
                   {!! Form::close() !!}
 
